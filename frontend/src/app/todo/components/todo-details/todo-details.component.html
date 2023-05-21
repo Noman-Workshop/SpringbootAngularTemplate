@@ -1,0 +1,19 @@
+<div class="content__title">
+  <nz-breadcrumb>
+    <nz-breadcrumb-item>
+      <a [routerLink]="['/todo']">Todo</a>
+    </nz-breadcrumb-item>
+    <nz-breadcrumb-item>
+      Todo Details
+    </nz-breadcrumb-item>
+  </nz-breadcrumb>
+</div>
+
+{{todo.id}}
+{{todo.name}}
+{{todo.description}}
+{{todo.status}}
+
+<!-- create a update and delete button -->
+<!-- <button nz-button nzType="primary" type="submit" [nzLoading]="submitting">Update</button>
+<button nz-button nzType="primary" type="submit" [nzLoading]="submitting">Delete</button> -->

@@ -1,0 +1,42 @@
+<nz-card class="login-card" [nzBordered]="false" nzTitle="Login">
+
+  <form nz-form [formGroup]="form" class="login-form" (ngSubmit)="submitForm()" role="form">
+    <span *ngIf="failed" style="margin-bottom: 5%; display: block;">
+      <nz-alert nzType="error" nzMessage="Login Failed!" [nzShowIcon]="true" class="mb-lg"></nz-alert>
+    </span>
+    <nz-form-item>
+      <nz-form-control nzHasFeedback nzErrorTip="Please input your email!">
+        <nz-input-group nzPrefixIcon="user">
+          <input type="email" nz-input formControlName="email" placeholder="Email" />
+        </nz-input-group>
+      </nz-form-control>
+    </nz-form-item>
+    <nz-form-item>
+      <nz-form-control nzErrorTip="Please input your Password!" nzHasFeedback [nzErrorTip]="combineTpl">
+        <nz-input-group nzPrefixIcon="lock">
+          <input type="password" nz-input formControlName="password" placeholder="Password" minlength="2" maxlength="12"
+            required />
+          <ng-template #combineTpl let-control>
+            <ng-container *ngIf="control.hasError('maxlength')">MaxLength is 12</ng-container>
+            <ng-container *ngIf="control.hasError('minlength')">MinLength is 2</ng-container>
+            <ng-container *ngIf="control.hasError('required')">Please input your Password!</ng-container>
+          </ng-template>
+        </nz-input-group>
+      </nz-form-control>
+    </nz-form-item>
+    <div nz-row class="login-form-margin">
+      <div nz-col [nzSpan]="12">
+        <label nz-checkbox formControlName="remember">
+          <span>Remember me</span>
+        </label>
+      </div>
+      <div nz-col [nzSpan]="12">
+        <a class="login-form-forgot" routerLink="/forgot">Forgot Password</a>
+      </div>
+    </div>
+    <button nz-button class="login-form-button login-form-margin" [nzType]="'primary'">Log in</button>
+    Or <a class="login-form-register" routerLink="/register">Register</a>
+  </form>
+  <nz-spin *ngIf="loader">
+  </nz-spin>
+</nz-card>

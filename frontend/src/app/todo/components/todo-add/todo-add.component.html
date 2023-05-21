@@ -1,0 +1,50 @@
+<div class="content__title">
+  <nz-breadcrumb>
+    <nz-breadcrumb-item>
+      <a [routerLink]="['/todo']">Todo</a>
+    </nz-breadcrumb-item>
+    <nz-breadcrumb-item>
+      Add Todo
+    </nz-breadcrumb-item>
+  </nz-breadcrumb>
+</div>
+
+<nz-card [nzBordered]="false" nzTitle="Add Todo" [nzLoading]="loading">
+  <form nz-form [formGroup]="form" (ngSubmit)="submit()">
+    <nz-form-item>
+      <nz-alert *ngIf="failed" nzType="error" nzMessage="Failed to add TODO!" [nzShowIcon]="true"></nz-alert>
+    </nz-form-item>
+    <nz-form-item>
+      <nz-form-label nzXs="24" nzSm="7" nzFor="name" nzRequired>Name</nz-form-label>
+      <nz-form-control nzHasFeedback nzErrorTip="Please enter a todo name!" nzXs="24" nzSm="12" nzMd="10">
+        <input type="text" nz-input formControlName="name" placeholder="Name" minlength="5" maxlength="256" />
+        <ng-template #combineTpl let-control>
+          <ng-container *ngIf="control.hasError('maxlength')">MaxLength is 256</ng-container>
+          <ng-container *ngIf="control.hasError('minlength')">MinLength is 5</ng-container>
+        </ng-template>
+      </nz-form-control>
+    </nz-form-item>
+
+    <nz-form-item>
+      <nz-form-label [nzSm]="7" [nzXs]="24" nzRequired nzFor="dueDate">Date</nz-form-label>
+      <nz-form-control nzHasFeedback nzXs="24" nzSm="12" nzMd="10" nzErrorTip="Please choose Date">
+        <nz-date-picker nzShowTime formControlName="dueDate" name="dueDate" nzFormat="yyyy-MM-dd HH:mm:ss"
+          nzPlaceHolder="Select Date time" style="width: 100%;"></nz-date-picker>
+      </nz-form-control>
+    </nz-form-item>
+
+    <nz-form-item>
+      <nz-form-label nzXs="24" nzSm="7" nzFor="name">Description</nz-form-label>
+      <nz-form-control nzXs="24" nzSm="12" nzMd="10">
+        <textarea rows="4" nz-input formControlName="description"></textarea>
+      </nz-form-control>
+    </nz-form-item>
+
+    <nz-form-item>
+      <nz-form-control [nzXs]="{ span: 24, offset: 0 }" [nzSm]="{ span: 10, offset: 7 }">
+        <button nz-button nzType="primary" type="submit" [nzLoading]="submitting" style="float: right;">Add</button>
+      </nz-form-control>
+    </nz-form-item>
+  </form>
+
+</nz-card>

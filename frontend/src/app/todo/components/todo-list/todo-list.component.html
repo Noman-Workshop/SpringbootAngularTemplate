@@ -1,0 +1,114 @@
+<div class="content__title">
+  <nz-breadcrumb>
+    <nz-breadcrumb-item>
+      <a [routerLink]="['/todo']">Todo</a>
+    </nz-breadcrumb-item>
+    <nz-breadcrumb-item>
+      List
+    </nz-breadcrumb-item>
+  </nz-breadcrumb>
+</div>
+
+<nz-card [nzBordered]="false">
+  <form nz-form (ngSubmit)="load()" [formGroup]="validateForm" class="ant-advanced-search-form">
+    <div nz-row [nzGutter]="24">
+      <div nz-col [nzSpan]="8" [hidden]="!isCollapsedField('name')">
+        <nz-form-item>
+          <nz-form-label nzFor="name">Name</nz-form-label>
+          <nz-form-control>
+            <input nz-input placeholder="Keywords for name" formControlName="name">
+          </nz-form-control>
+        </nz-form-item>
+      </div>
+      <div nz-col [nzSpan]="8" [hidden]="!isCollapsedField('status')">
+        <nz-form-item>
+          <nz-form-label nzFor="status">Status</nz-form-label>
+          <nz-form-control>
+            <nz-select name="status" formControlName="status" nzPlaceHolder="Select Status">
+              <nz-option nzValue="TODO" nzLabel="TODO"></nz-option>
+              <nz-option nzValue="DOING" nzLabel="DOING"></nz-option>
+              <nz-option nzValue="COMPLETED" nzLabel="COMPLETED"></nz-option>
+              <nz-option nzValue="PAUSE_HOLD" nzLabel="PAUSE AND HOLD"></nz-option>
+              <nz-option nzValue="FAILED" nzLabel="FAILED"></nz-option>
+            </nz-select>
+          </nz-form-control>
+        </nz-form-item>
+      </div>
+      <div nz-col [nzSpan]="8" [hidden]="!isCollapsedField('dueDate')">
+        <nz-form-item>
+          <nz-form-label nzFor="dueDate">Date</nz-form-label>
+          <nz-form-control>
+            <nz-date-picker formControlName="dueDate" name="dueDate" nzFormat="yyyy-MM-dd"
+              nzPlaceHolder="Select Due Date" style="width: 100%;"></nz-date-picker>
+          </nz-form-control>
+        </nz-form-item>
+      </div>
+      <div nz-col [nzSpan]="8" [hidden]="!isCollapsedField('isImportant')">
+        <nz-form-item>
+          <nz-form-control>
+            <!-- checkbox for isImportant -->
+            <label nz-checkbox formControlName="isImportant">
+              <span>Important</span>
+            </label>
+          </nz-form-control>
+        </nz-form-item>
+      </div>
+    </div>
+    <div nz-row>
+      <div nz-col [nzSpan]="24" class="search-area">
+        <button nz-button type="submit" [nzType]="'primary'">Search</button>
+        <button nz-button (click)="resetForm()">Clear</button>
+        <a class="collapse" (click)="toggleCollapse()">
+          Collapse
+          <span nz-icon [nzType]="isCollapse ? 'down' : 'up'"></span>
+        </a>
+      </div>
+    </div>
+  </form>
+  <br>
+  <nz-table (nzQueryParams)="sort($event)" #todoTable [nzData]="data.content" [nzFrontPagination]="false"
+    [nzShowSizeChanger]="true" [nzLoading]="loading" [nzTotal]="data.totalItems"
+    [(nzPageIndex)]="criteria.pagination.page" (nzPageIndexChange)="load()" [(nzPageSize)]="criteria.pagination.size"
+    (nzPageSizeChange)="load()" [nzSize]="'middle'">
+    <thead>
+      <tr>
+        <th></th>
+        <th nzColumnKey="name" [nzSortFn]="true">Name</th>
+        <th nzColumnKey="status" [nzSortFn]="true">Status</th>
+        <th nzColumnKey="dueDate" [nzSortFn]="true">Due Date</th>
+        <th>Action</th>
+      </tr>
+    </thead>
+    <tbody>
+      <ng-container *ngFor="let data of todoTable.data">
+        <tr>
+          <td>
+            <a (click)="updateStatus(data)"><span nz-icon [nzType]="'check-circle'" class="large-icon"
+                [nzTheme]="data.status=='COMPLETED' ? 'fill':''"></span></a>
+          </td>
+          <td [ngStyle]="{'text-decoration': data.status=='COMPLETED' ? 'line-through':''}">{{data.name}}</td>
+          <td>
+            <nz-tag [nzColor]="getStatusColor(data.status)">{{data.status}}</nz-tag>
+          </td>
+          <td>{{data.dueDate | date:'yyyy-MM-dd h:mm a'}}</td>
+          <td [nzExpand]="expandSet.has(data.id)" (nzExpandChange)="onExpandChange(data.id, $event)">
+            <nz-divider nzType="vertical"></nz-divider>
+            <a [routerLink]="['/todo/update', data.id]"><i nz-icon nzType="edit"></i></a>
+            <nz-divider nzType="vertical"></nz-divider>
+            <a nz-popconfirm nzPopconfirmTitle="Are you sure delete this task?" nzPopconfirmPlacement="bottom"
+              (nzOnConfirm)="delete(data.id)" (nzOnCancel)="showMsg('Task delete cancelled')">
+              <i nz-icon nzType="delete"></i>
+            </a>
+            <nz-divider nzType="vertical"></nz-divider>
+            <a (click)="updateImportance(data)"><span nz-icon [nzType]="'star'"
+                [nzTheme]="data.isImportant ? 'fill':''"></span></a>
+          </td>
+        </tr>
+        <tr [nzExpand]="expandSet.has(data.id)">
+          <span>{{ data.description=='' || data.description==null ? 'No Description Found' : data.description }}</span>
+        </tr>
+      </ng-container>
+    </tbody>
+
+  </nz-table>
+</nz-card>

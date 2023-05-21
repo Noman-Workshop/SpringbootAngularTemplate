@@ -1,0 +1,12 @@
+
+<div id="username" class="item d-flex align-items-center px-sm" nz-dropdown [nzDropdownMenu]="menu">
+  {{username}}
+  <span nz-icon nzType="down"></span>
+</div>
+<nz-dropdown-menu #menu="nzDropdownMenu">
+  <ul nz-menu>
+    <li nz-menu-item (click)="logout()">
+      <i class="anticon" nz-icon nzType="logout"></i><span>Sign Out</span>
+    </li>
+  </ul>
+</nz-dropdown-menu>

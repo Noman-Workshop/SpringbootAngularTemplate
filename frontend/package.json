@@ -1,0 +1,48 @@
+{
+  "name": "todo-app-frontend",
+  "version": "0.0.0",
+  "scripts": {
+    "ng": "ng",
+    "start": "ng serve --proxy-config proxy.conf.json",
+    "build": "ng build",
+    "test": "ng test",
+    "lint": "ng lint",
+    "e2e": "ng e2e"
+  },
+  "private": true,
+  "dependencies": {
+    "@angular/animations": "~11.2.5",
+    "@angular/common": "^11.2.14",
+    "@angular/compiler": "~11.2.5",
+    "@angular/core": "~11.2.5",
+    "@angular/forms": "~11.2.5",
+    "@angular/platform-browser": "~11.2.5",
+    "@angular/platform-browser-dynamic": "~11.2.5",
+    "@angular/router": "~11.2.5",
+    "@antv/g2": "^3.2.8",
+    "classlist.js": "^1.1.20150312",
+    "core-js": "^2.5.4",
+    "ng-zorro-antd": "^11.4.2",
+    "ngx-webstorage": "7.0.1",
+    "rxjs": "~6.6.0",
+    "screenfull": "^3.3.3",
+    "tslib": "^2.5.1",
+    "viser-ng": "^2.5.2",
+    "web-animations-js": "^2.3.1",
+    "zone.js": "^0.11.8"
+  },
+  "devDependencies": {
+    "@angular-devkit/build-angular": "~0.1102.3",
+    "@angular/cli": "~11.2.4",
+    "@angular/compiler-cli": "~11.2.5",
+    "@types/jasmine": "~3.6.0",
+    "@types/node": "^12.11.1",
+    "codelyzer": "^6.0.0",
+    "less": "^3.13.1",
+    "less-loader": "^11.1.0",
+    "protractor": "~7.0.0",
+    "ts-node": "~8.3.0",
+    "tslint": "~6.1.0",
+    "typescript": "~4.1.5"
+  }
+}

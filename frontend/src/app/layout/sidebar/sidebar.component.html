@@ -1,0 +1,31 @@
+<div class="aside-inner">
+  <ul nz-menu [nzMode]="'inline'" nzTheme='light' [nzInlineCollapsed]="settings.layout.collapsed">
+    <li nz-submenu nzOpen>
+      <span title>
+        <i nz-icon nzType="check"></i>
+        <span>Todo</span>
+      </span>
+      <ul>
+        <li nz-menu-item routerLinkActive="ant-menu-item-selected">
+          <a [routerLink]="['/todo/all']"><i nz-icon nzType="unordered-list" nzTheme="outline"></i><span>Todo List</span></a>
+        </li>
+      </ul>
+      <ul>
+        <li nz-menu-item routerLinkActive="ant-menu-item-selected">
+          <a [routerLink]="['/todo/add']"><i nz-icon nzType="plus"></i><span>Add Todo</span></a>
+        </li>
+      </ul>
+    </li>
+    <li nz-submenu nzOpen *appHasAnyAuthority="['ROLE_ADMIN']">
+      <span title>
+        <i nz-icon nzType="setting"></i>
+        <span>系统设置</span>
+      </span>
+      <ul>
+        <li nz-menu-item routerLinkActive="ant-menu-item-selected">
+          <a [routerLink]="['/users']"><i nz-icon nzType="team"></i><span>用户管理</span></a>
+        </li>
+      </ul>
+    </li>
+  </ul>
+</div>

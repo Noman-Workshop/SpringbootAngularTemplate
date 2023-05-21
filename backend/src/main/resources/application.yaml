@@ -1,0 +1,48 @@
+server:
+  port: 8081
+  servlet:
+    context-path: /api
+
+spring:
+  application:
+    name: todoapp
+  datasource:
+    url: jdbc:postgresql://localhost:5433/todoapp
+    username: dev@todoapp
+    password: password@todoapp
+  jpa:
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+    show-sql: true
+  liquibase:
+    enabled: true
+    change-log: classpath:db/migrations/changelog-master.xml
+
+redis:
+  host: localhost
+  port: 6379
+  password: password@tokens
+  pool:
+    max:
+      connection: 30
+      idle:
+        connection: 10
+    min:
+      idle:
+        connection: 0
+  database:
+    index: 0
+
+security:
+  jwt:
+    refresh-token:
+      secret: super-strong-refresh-token-secret
+      expiration: 600
+    access-token:
+      secret: super-strong-access-token-secret
+      expiration: 300
+
+springdoc:
+  api-docs:
+    path: /docs
