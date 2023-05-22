@@ -4,7 +4,7 @@
   "scripts": {
     "ng": "ng",
     "start": "ng serve --proxy-config proxy.conf.json",
-    "build": "ng build",
+    "build": "ng build --prod --configuration production",
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e"
@@ -27,7 +27,6 @@
     "rxjs": "~6.6.0",
     "screenfull": "^3.3.3",
     "tslib": "^2.5.1",
-    "viser-ng": "^2.5.2",
     "web-animations-js": "^2.3.1",
     "zone.js": "^0.11.8"
   },
@@ -39,7 +38,7 @@
     "@types/node": "^12.11.1",
     "codelyzer": "^6.0.0",
     "less": "^3.13.1",
-    "less-loader": "^11.1.0",
+    "less-loader": "^7.3.0",
     "protractor": "~7.0.0",
     "ts-node": "~8.3.0",
     "tslint": "~6.1.0",

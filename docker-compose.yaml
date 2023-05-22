@@ -1,0 +1,110 @@
+version: '3.9'
+
+
+services:
+
+  todo-app-backend:
+    image: amazoncorretto:11
+    volumes:
+      - ./backend/target/todo-app.jar:/app/backend/todo-app.jar
+    working_dir: /app/backend
+    environment:
+      - spring.datasource.url=jdbc:postgresql://todoapp-db:5432/todoapp
+      - redis.host=tokens-db
+    command: java -jar todo-app.jar
+    networks:
+      - todoapp-network
+    ports:
+      - "9080:8080"
+    depends_on:
+      - todoapp-db
+      - tokens-db
+
+  todo-app-frontend:
+    image: busybox:latest
+    volumes:
+      - ./frontend/dist/todoApp-frontend:/app/frontend
+    working_dir: /app/frontend
+    command: httpd -f -v -p 4200
+    networks:
+      - todoapp-network
+    ports:
+      - "9081:4200"
+    depends_on:
+      - todo-app-backend
+
+  todoapp-db:
+    image: postgres:15
+    environment:
+      POSTGRES_DB: todoapp
+      POSTGRES_USER: dev@todoapp
+      POSTGRES_PASSWORD: password@todoapp
+    volumes:
+      - todoapp-db-data:/var/lib/postgresql/data
+    networks:
+      - todoapp-network
+    healthcheck:
+      test: [ "CMD-SHELL", "pg_isready -d $${POSTGRES_DB} -U $${POSTGRES_USER}" ]
+      interval: 5s
+      timeout: 3s
+      retries: 10
+      start_period: 3s
+
+  tokens-db:
+    image: redis:alpine
+    command: redis-server --requirepass password@tokens
+    environment:
+      - TOKENS_DB_PASSWORD
+    volumes:
+      - tokens-db-data:/data
+    networks:
+      - todoapp-network
+    healthcheck:
+      test: [ "CMD-SHELL", 'redis-cli -a "$$TOKENS_DB_PASSWORD" PING | grep PONG' ]
+      interval: 5s
+      timeout: 3s
+      retries: 10
+      start_period: 2s
+
+  # ================================== # Build apps # ================================== #
+  build-todo-app-backend:
+    image: amazoncorretto:11
+    volumes:
+      - ./backend:/app/backend
+    working_dir: /app/backend
+    environment:
+      - spring.datasource.url=jdbc:postgresql://todoapp-db:5432/todoapp
+      - redis.host=tokens-db
+    command: ./mvnw clean package
+    networks:
+      - todoapp-network
+    depends_on:
+      - todoapp-db
+      - tokens-db
+
+  build-todo-app-frontend:
+    image: node:16.17.0
+    volumes:
+      - ./frontend:/app/frontend
+    working_dir: /app/frontend
+    command:
+      - sh
+      - -c
+      - |
+        rm -rf node_modules
+        rm -rf dist
+        npm install -g npm-check-updates
+        npm ci
+        npm run build
+    networks:
+      - todoapp-network
+
+
+volumes:
+  todoapp-db-data:
+  tokens-db-data:
+
+
+networks:
+  todoapp-network:
+    driver: bridge
