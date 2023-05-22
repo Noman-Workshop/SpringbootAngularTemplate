@@ -42,7 +42,7 @@ export class TodoListComponent implements OnInit {
     { name: string, show: boolean }> = [
       { name: 'name', show: true },
       { name: 'status', show: true },
-      { name: 'dueDate', show: true },
+      { name: 'dueDate', show: false },
       { name: 'isImportant', show: false }
     ];
   isCollapse = true;
@@ -102,9 +102,10 @@ export class TodoListComponent implements OnInit {
 
     const filters = Object.assign({}, this.criteria.filters);
     filters.name = this.validateForm.controls.name.value ?? null;
-    filters.status = this.validateForm.controls.status.value ?? null;
+    filters.status = this.validateForm.controls.status.value !== '' ? this.validateForm.controls.status.value : null;
     filters.dueDate = this.validateForm.controls.dueDate.value ? new Date(this.validateForm.controls.dueDate.value.toDateString()) : null;
-    filters.isImportant = this.validateForm.controls.isImportant.value ?? null;
+    const isImportant = this.validateForm.controls.isImportant.value;
+    filters.isImportant = isImportant !== '' && isImportant !== null ? (isImportant === 'true') : null;
 
     return {
       pagination,
@@ -166,7 +167,7 @@ export class TodoListComponent implements OnInit {
   toggleCollapse(): void {
     this.isCollapse = !this.isCollapse;
     this.collapsableFields.forEach((field, index) => {
-      field.show = this.isCollapse ? index < 3 : true;
+      field.show = this.isCollapse ? index < 2 : true;
     });
   }
 

@@ -12,7 +12,7 @@
 <nz-card [nzBordered]="false">
   <form nz-form (ngSubmit)="load()" [formGroup]="validateForm" class="ant-advanced-search-form">
     <div nz-row [nzGutter]="24">
-      <div nz-col [nzSpan]="8" [hidden]="!isCollapsedField('name')">
+      <div nz-col [nzSpan]="12" [hidden]="!isCollapsedField('name')">
         <nz-form-item>
           <nz-form-label nzFor="name">Name</nz-form-label>
           <nz-form-control>
@@ -20,11 +20,12 @@
           </nz-form-control>
         </nz-form-item>
       </div>
-      <div nz-col [nzSpan]="8" [hidden]="!isCollapsedField('status')">
+      <div nz-col [nzSpan]="12" [hidden]="!isCollapsedField('status')">
         <nz-form-item>
           <nz-form-label nzFor="status">Status</nz-form-label>
           <nz-form-control>
             <nz-select name="status" formControlName="status" nzPlaceHolder="Select Status">
+              <nz-option nzValue="{{null}}" nzLabel="ALL"></nz-option>
               <nz-option nzValue="TODO" nzLabel="TODO"></nz-option>
               <nz-option nzValue="DOING" nzLabel="DOING"></nz-option>
               <nz-option nzValue="COMPLETED" nzLabel="COMPLETED"></nz-option>
@@ -34,7 +35,7 @@
           </nz-form-control>
         </nz-form-item>
       </div>
-      <div nz-col [nzSpan]="8" [hidden]="!isCollapsedField('dueDate')">
+      <div nz-col [nzSpan]="12" [hidden]="!isCollapsedField('dueDate')">
         <nz-form-item>
           <nz-form-label nzFor="dueDate">Date</nz-form-label>
           <nz-form-control>
@@ -43,13 +44,15 @@
           </nz-form-control>
         </nz-form-item>
       </div>
-      <div nz-col [nzSpan]="8" [hidden]="!isCollapsedField('isImportant')">
+      <div nz-col [nzSpan]="12" [hidden]="!isCollapsedField('isImportant')">
         <nz-form-item>
+          <nz-form-label nzFor="isImportant">Important</nz-form-label>
           <nz-form-control>
-            <!-- checkbox for isImportant -->
-            <label nz-checkbox formControlName="isImportant">
-              <span>Important</span>
-            </label>
+            <nz-select name="isImportant" formControlName="isImportant" nzPlaceHolder="Choose Importance">
+              <nz-option nzValue="{{null}}" nzLabel="ALL"></nz-option>
+              <nz-option nzValue="{{true}}" nzLabel="IMPORTANT"></nz-option>
+              <nz-option nzValue="{{false}}" nzLabel="NOT IMPORTANT"></nz-option>
+            </nz-select>
           </nz-form-control>
         </nz-form-item>
       </div>
