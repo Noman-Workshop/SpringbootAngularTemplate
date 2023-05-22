@@ -189,7 +189,7 @@ export class TodoListComponent implements OnInit {
         return 'green';
       case 'DOING':
         return 'blue';
-      case 'PAUSE_HOLD':
+      case 'PAUSE AND HOLD':
         return 'orange';
       case 'FAILED':
         return 'red';
