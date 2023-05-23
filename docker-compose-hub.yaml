@@ -4,8 +4,7 @@ version: '3.9'
 services:
 
   todo-app-backend:
-    build:
-      context: ./backend
+    image: nishad5089/todoapp-todo-app-backend
     environment:
       - spring.datasource.url=jdbc:postgresql://todoapp-db:5432/todoapp
       - redis.host=tokens-db
@@ -18,8 +17,7 @@ services:
       - tokens-db
 
   todo-app-frontend:
-    build:
-      context: ./frontend
+    image: nishad5089/todoapp-todo-app-frontend
     networks:
       - todoapp-network
     ports:
@@ -63,39 +61,6 @@ services:
       timeout: 3s
       retries: 10
       start_period: 2s
-
-  # ================================== # Build apps # ================================== #
-  build-todo-app-backend:
-    image: amazoncorretto:11
-    volumes:
-      - ./backend:/app/backend
-    working_dir: /app/backend
-    environment:
-      - spring.datasource.url=jdbc:postgresql://todoapp-db:5432/todoapp
-      - redis.host=tokens-db
-    command: ./mvnw clean package
-    networks:
-      - todoapp-network
-    depends_on:
-      - todoapp-db
-      - tokens-db
-
-  build-todo-app-frontend:
-    image: node:16.17.0
-    volumes:
-      - ./frontend:/app/frontend
-    working_dir: /app/frontend
-    command:
-      - sh
-      - -c
-      - |
-        rm -rf node_modules
-        rm -rf dist
-        npm install -g npm-check-updates
-        npm ci
-        npm run build
-    networks:
-      - todoapp-network
 
 
 volumes:
