@@ -26,7 +26,9 @@ docker-compose -p todoapp up todo-app-frontend
 ----
 
 == Accessing the application
-// create asciidoc table with username and password
+The frontend will be available at http://localhost:9081
+The backend will be available at http://localhost:9080
+
 [cols="2,2",options="header"]
 |===
 | Username | Password
