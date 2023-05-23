@@ -47,6 +47,11 @@ docker-compose -p todoapp up todoapp-db tokens-db
 === Running backend
 
 Use IntelliJ to open the project, maven sync and run the project
+or
+[source,sh]
+----
+./mvnw spring-boot:run
+----
 
 === Running frontend
 
