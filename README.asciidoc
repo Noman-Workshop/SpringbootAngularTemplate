@@ -1,0 +1,58 @@
+= Running the Application
+
+== Using built in images
+
+If you want to just run the application without building the images yourself, you can use the images that are already built and available on Docker Hub.
+
+[source,sh]
+----
+docker-compose -p todoapp -f docker-compose-hub.yaml up todo-app-frontend
+----
+
+== Building the distributions and images from source
+
+If you want to build the images yourself, you can use the following command to build the images and run the application.
+
+[source,sh]
+----
+docker-compose -p todoapp up build-todo-app-backend
+docker-compose -p todoapp up build-todo-app-frontend
+
+# wait for the build to finish
+# then run the application
+
+docker-compose -p todoapp up todo-app-backend
+docker-compose -p todoapp up todo-app-frontend
+----
+
+== Accessing the application
+// create asciidoc table with username and password
+[cols="2,2",options="header"]
+|===
+| Username | Password
+| john@gmail.com | 12345678
+| alice@gmail.com | 12345678
+| mark@gmail.com | 12345678
+|===
+
+== For Developers
+
+If you want to run the databases using docker but applications from local environment
+
+[source,sh]
+----
+docker-compose -p todoapp up todoapp-db tokens-db
+----
+
+=== Running backend
+
+Use IntelliJ to open the project, maven sync and run the project
+
+=== Running frontend
+
+[source,sh]
+----
+npm i
+npm start
+----
+
