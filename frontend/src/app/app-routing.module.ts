@@ -13,7 +13,7 @@ import { SelectivePreloadingStrategy } from './core/preloading-strategy/selectiv
 export const routes: Routes = [
   {
     path: '',
-    redirectTo: '/dashboard',
+    redirectTo: '/todo/list',
     pathMatch: 'full'
   },
   {

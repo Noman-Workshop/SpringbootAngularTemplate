@@ -68,7 +68,7 @@ export class TodoUpdateComponent implements OnInit {
           this.loading = false;
           this.submitting = false;
           this.msg.success(data.message);
-          this.router.navigate(['/todo/all']);
+          this.router.navigate(['/todo/list']);
         },
         (error) => {
           this.loading = false;

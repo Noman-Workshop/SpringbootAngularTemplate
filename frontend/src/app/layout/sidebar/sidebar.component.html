@@ -7,7 +7,7 @@
       </span>
       <ul>
         <li nz-menu-item routerLinkActive="ant-menu-item-selected">
-          <a [routerLink]="['/todo/all']"><i nz-icon nzType="unordered-list" nzTheme="outline"></i><span>Todo List</span></a>
+          <a [routerLink]="['/todo/list']"><i nz-icon nzType="unordered-list" nzTheme="outline"></i><span>Todo List</span></a>
         </li>
       </ul>
       <ul>
@@ -19,11 +19,11 @@
     <li nz-submenu nzOpen *appHasAnyAuthority="['ROLE_ADMIN']">
       <span title>
         <i nz-icon nzType="setting"></i>
-        <span>系统设置</span>
+        <span>Settings</span>
       </span>
       <ul>
         <li nz-menu-item routerLinkActive="ant-menu-item-selected">
-          <a [routerLink]="['/users']"><i nz-icon nzType="team"></i><span>用户管理</span></a>
+          <a [routerLink]="['/users']"><i nz-icon nzType="team"></i><span>Users</span></a>
         </li>
       </ul>
     </li>

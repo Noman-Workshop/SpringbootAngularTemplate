@@ -3,6 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { NzMessageService } from 'ng-zorro-antd/message';
 
 import { TodoService } from 'src/app/todo/services/todo.service';
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-todo-add',
@@ -18,7 +19,8 @@ export class TodoAddComponent implements OnInit {
 
   constructor(private fb: FormBuilder,
     private msg: NzMessageService,
-    private todoService: TodoService
+    private todoService: TodoService,
+    private router: Router
   ) { }
 
 
@@ -68,6 +70,7 @@ export class TodoAddComponent implements OnInit {
           this.msg.success('Todo added successfully');
           console.log(data);
           this.form.reset();
+          this.router.navigate(['/todo/list']);
         },
         (error) => {
           this.loading = false;

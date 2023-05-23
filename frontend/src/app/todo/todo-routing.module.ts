@@ -32,7 +32,7 @@ const routes: Routes = [
     canActivate: [AuthGuard],
     children: [
       {
-        path: 'all',
+        path: 'list',
         component: TodoListComponent,
         data: {
           // authorities: ['ROLE_ADMIN']
