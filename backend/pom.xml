@@ -19,6 +19,7 @@
         <org.projectlombok.version>1.18.22</org.projectlombok.version>
         <org.lombok-mapstruct-binding.version>0.2.0</org.lombok-mapstruct-binding.version>
         <apache.common.pool.version>2.11.1</apache.common.pool.version>
+        <hibernate.jpamodelgen.version>5.6.1.Final</hibernate.jpamodelgen.version>
     </properties>
     <dependencies>
         <dependency>
@@ -149,6 +150,11 @@
                             <artifactId>lombok-mapstruct-binding</artifactId>
                             <version>${org.lombok-mapstruct-binding.version}</version>
                         </path>
+                        <annotationProcessorPath>
+                            <groupId>org.hibernate</groupId>
+                            <artifactId>hibernate-jpamodelgen</artifactId>
+                            <version>${hibernate.jpamodelgen.version}</version>
+                        </annotationProcessorPath>
                     </annotationProcessorPaths>
                 </configuration>
             </plugin>
