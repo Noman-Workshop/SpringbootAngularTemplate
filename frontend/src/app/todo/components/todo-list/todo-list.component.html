@@ -96,12 +96,14 @@
           <td>{{data.dueDate | date:'yyyy-MM-dd h:mm a'}}</td>
           <td [nzExpand]="expandSet.has(data.id)" (nzExpandChange)="onExpandChange(data.id, $event)">
             <nz-divider nzType="vertical"></nz-divider>
+
             <a [routerLink]="['/todo/update', data.id]"><i nz-icon nzType="edit"></i></a>
             <nz-divider nzType="vertical"></nz-divider>
             <a nz-popconfirm nzPopconfirmTitle="Are you sure delete this task?" nzPopconfirmPlacement="bottom"
               (nzOnConfirm)="delete(data.id)" (nzOnCancel)="showMsg('Task delete cancelled')">
               <i nz-icon nzType="delete"></i>
             </a>
+
             <nz-divider nzType="vertical"></nz-divider>
             <a (click)="updateImportance(data)"><span nz-icon [nzType]="'star'"
                 [nzTheme]="data.isImportant ? 'fill':''"></span></a>

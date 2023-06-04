@@ -1,13 +1,6 @@
 {
-  "/api/auth": {
-    "target": "http://localhost:8080",
-    "secure": false
-  },
-  "/api/user/account": {
-    "target": "http://localhost:8080",
-    "secure": false
-  },
-  "/api/todo": {
+
+  "/api/*": {
     "target": "http://localhost:8080",
     "secure": false
   },

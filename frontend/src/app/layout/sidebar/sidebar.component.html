@@ -16,6 +16,24 @@
         </li>
       </ul>
     </li>
+
+    <li nz-submenu nzOpen>
+      <span title>
+        <i nz-icon nzType="check"></i>
+        <span>Roles</span>
+      </span>
+      <ul>
+        <li nz-menu-item routerLinkActive="ant-menu-item-selected">
+          <a [routerLink]="['/roles/list']"><i nz-icon nzType="unordered-list" nzTheme="outline"></i><span>Roles List</span></a>
+        </li>
+      </ul>
+      <ul>
+        <li nz-menu-item routerLinkActive="ant-menu-item-selected">
+          <a [routerLink]="['/roles/add']"><i nz-icon nzType="plus"></i><span>Add Role</span></a>
+        </li>
+      </ul>
+    </li>
+
     <li nz-submenu nzOpen *appHasAnyAuthority="['ROLE_ADMIN']">
       <span title>
         <i nz-icon nzType="setting"></i>

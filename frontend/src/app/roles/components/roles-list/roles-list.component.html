@@ -1,0 +1,74 @@
+<div class="content__title">
+  <nz-breadcrumb>
+    <nz-breadcrumb-item>
+      <a [routerLink]="['/roles']">Roles</a>
+    </nz-breadcrumb-item>
+    <nz-breadcrumb-item>
+      List
+    </nz-breadcrumb-item>
+  </nz-breadcrumb>
+</div>
+
+<nz-card [nzBordered]="false">
+  <form nz-form (ngSubmit)="load()" [formGroup]="validateForm" class="ant-advanced-search-form">
+    <div nz-row [nzGutter]="24">
+      <div nz-col [nzSpan]="12" [hidden]="!isCollapsedField('name')">
+        <nz-form-item>
+          <nz-form-label nzFor="name">Name</nz-form-label>
+          <nz-form-control>
+            <input nz-input placeholder="Keywords for name" formControlName="name">
+          </nz-form-control>
+        </nz-form-item>
+      </div>
+
+    </div>
+    <div nz-row>
+      <div nz-col [nzSpan]="24" class="search-area">
+        <button nz-button type="submit" [nzType]="'primary'">Search</button>
+        <button nz-button (click)="resetForm()">Clear</button>
+
+      </div>
+    </div>
+  </form>
+  <br>
+  <nz-table (nzQueryParams)="sort($event)" #roleTable [nzData]="data.content" [nzFrontPagination]="false"
+    [nzShowSizeChanger]="true" [nzLoading]="loading" [nzTotal]="data.totalItems"
+    [(nzPageIndex)]="criteria.pagination.page" (nzPageIndexChange)="load()" [(nzPageSize)]="criteria.pagination.size"
+    (nzPageSizeChange)="load()" [nzSize]="'middle'">
+    <thead>
+      <tr>
+        <th></th>
+        <th nzColumnKey="name" [nzSortFn]="true">Name</th>
+      </tr>
+    </thead>
+    <tbody>
+      <ng-container *ngFor="let data of roleTable.data">
+        <tr>
+          <td>
+
+          </td>
+          <td [ngStyle]="{'text-decoration': data.status=='COMPLETED' ? 'line-through':''}">{{data.name}}</td>
+
+
+          <td [nzExpand]="expandSet.has(data.id)" (nzExpandChange)="onExpandChange(data.id, $event)">
+            <nz-divider nzType="vertical"></nz-divider>
+
+            <a [routerLink]="['/roles/update', data.id]"><i nz-icon nzType="edit"></i></a>
+            <nz-divider nzType="vertical"></nz-divider>
+
+            <a nz-popconfirm nzPopconfirmTitle="Are you sure delete this role?" nzPopconfirmPlacement="bottom"
+              (nzOnConfirm)="delete(data.id)" (nzOnCancel)="showMsg('Role delete cancelled')">
+              <i nz-icon nzType="delete"></i>
+            </a>
+            <nz-divider nzType="vertical"></nz-divider>
+
+          </td>
+        </tr>
+        <tr [nzExpand]="expandSet.has(data.id)">
+          <span>{{ data.description=='' || data.description==null ? 'No Description Found' : data.description }}</span>
+        </tr>
+      </ng-container>
+    </tbody>
+
+  </nz-table>
+</nz-card>

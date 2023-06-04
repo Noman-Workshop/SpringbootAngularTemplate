@@ -41,7 +41,7 @@ security:
       expiration: 600
     access-token:
       secret: super-strong-access-token-secret
-      expiration: 300
+      expiration: 30000
 
 springdoc:
   api-docs:

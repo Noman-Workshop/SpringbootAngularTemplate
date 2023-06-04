@@ -1,0 +1,36 @@
+<div class="content__title">
+  <nz-breadcrumb>
+    <nz-breadcrumb-item>
+      <a [routerLink]="['/roles']">Roles</a>
+    </nz-breadcrumb-item>
+    <nz-breadcrumb-item>
+      Add Role
+    </nz-breadcrumb-item>
+  </nz-breadcrumb>
+</div>
+
+<nz-card [nzBordered]="false" nzTitle="Add Role" [nzLoading]="loading">
+  <form nz-form [formGroup]="form" (ngSubmit)="submit()">
+    <nz-form-item>
+      <nz-alert *ngIf="failed" nzType="error" nzMessage="Failed to add Role!" [nzShowIcon]="true"></nz-alert>
+    </nz-form-item>
+    <nz-form-item>
+      <nz-form-label nzXs="24" nzSm="7" nzFor="name" nzRequired>Name</nz-form-label>
+      <nz-form-control nzHasFeedback nzErrorTip="Please enter a role name!" nzXs="24" nzSm="12" nzMd="10">
+        <input type="text" nz-input formControlName="name" placeholder="Name" minlength="4" maxlength="256" />
+        <ng-template #combineTpl let-control>
+          <ng-container *ngIf="control.hasError('maxlength')">MaxLength is 256</ng-container>
+          <ng-container *ngIf="control.hasError('minlength')">MinLength is 4</ng-container>
+        </ng-template>
+      </nz-form-control>
+    </nz-form-item>
+
+
+    <nz-form-item>
+      <nz-form-control [nzXs]="{ span: 24, offset: 0 }" [nzSm]="{ span: 10, offset: 7 }">
+        <button nz-button nzType="primary" type="submit" [nzLoading]="submitting" style="float: right;">Add</button>
+      </nz-form-control>
+    </nz-form-item>
+  </form>
+
+</nz-card>

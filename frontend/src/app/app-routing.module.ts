@@ -65,6 +65,14 @@ export const routes: Routes = [
         data: {
         }
       },
+
+      {
+        path: 'roles',
+        loadChildren: './roles/roles.module#RolesModule',
+        canLoad: [AuthGuard],
+        data: {
+        }
+      },
     ],
     canActivateChild: [AuthGuard],
     data: {
