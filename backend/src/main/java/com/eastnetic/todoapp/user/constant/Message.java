@@ -8,6 +8,8 @@ import lombok.Getter;
 public enum Message {
 	USER_CREATED_SUCCESSFULLY("user created successfully"),
 	USER_RETRIEVED_SUCCESSFULLY("user data retrieved successfully"),
+
+	USERS_RETRIEVED_SUCCESSFULLY("users retrieved successfully"),
 	USER_UPDATED_SUCCESSFULLY("user data updated successfully"),
 	USER_EMAIL_ALREADY_EXISTS("user with email %s already exists"),
 	USER_CREATE_FAILED("failed to create user"),

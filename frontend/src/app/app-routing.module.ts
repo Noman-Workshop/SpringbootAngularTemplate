@@ -73,6 +73,14 @@ export const routes: Routes = [
         data: {
         }
       },
+
+      {
+        path: 'user',
+        loadChildren: './users/users.module#UsersModule',
+        canLoad: [AuthGuard],
+        data: {
+        }
+      },
     ],
     canActivateChild: [AuthGuard],
     data: {

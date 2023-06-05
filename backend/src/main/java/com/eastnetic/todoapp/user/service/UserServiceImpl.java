@@ -1,18 +1,28 @@
 package com.eastnetic.todoapp.user.service;
 
 import com.eastnetic.todoapp.auth.domain.entity.UserDetailsImpl;
+import com.eastnetic.todoapp.common.domain.request.PaginationRequest;
+import com.eastnetic.todoapp.common.domain.response.PagedResponse;
 import com.eastnetic.todoapp.common.service.BaseService;
+import com.eastnetic.todoapp.common.util.PageUtil;
 import com.eastnetic.todoapp.user.domain.mapper.UserMapper;
 import com.eastnetic.todoapp.user.domain.request.CreateUserRequest;
 import com.eastnetic.todoapp.user.domain.entity.User;
+import com.eastnetic.todoapp.user.domain.request.GetUserRequest;
 import com.eastnetic.todoapp.user.domain.request.UpdateUserRequest;
+import com.eastnetic.todoapp.user.domain.response.UserAdminResponse;
 import com.eastnetic.todoapp.user.domain.response.UserDetailsResponse;
 import com.eastnetic.todoapp.user.exception.UserAlreadyExistsException;
 import com.eastnetic.todoapp.user.exception.UserCreationFailedException;
 import com.eastnetic.todoapp.user.exception.UserNotFoundException;
 import com.eastnetic.todoapp.user.exception.UserUpdateFailedException;
+import com.eastnetic.todoapp.user.repository.Specification.UserSpecification;
 import com.eastnetic.todoapp.user.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
+import org.hibernate.event.spi.SaveOrUpdateEvent;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -98,5 +108,17 @@ public class UserServiceImpl extends BaseService implements UserService {
 		} catch (Exception ignored) {
 			throw new UserUpdateFailedException();
 		}
+	}
+
+	@Override
+	public PagedResponse<UserAdminResponse> getAll(GetUserRequest filterUserRequest){
+
+		PaginationRequest paginationRequest= filterUserRequest.getPagination();
+		Sort sort= PageUtil.getSort(paginationRequest.getSorts());
+		PageRequest pagination = PageRequest.of(paginationRequest.getPage()-1,paginationRequest.getSize(),sort);
+
+		Page<User> users= userRepository.findAll(UserSpecification.criteriaFilter(filterUserRequest.getFilters()),pagination);
+
+		return PageUtil.paginate(users,userMapper::maptoResponse);
 	}
 }

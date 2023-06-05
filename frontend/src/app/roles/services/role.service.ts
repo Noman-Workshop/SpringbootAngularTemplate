@@ -15,9 +15,9 @@ export class RoleService {
 
   constructor(private http: HttpClient) { }
 
-  validateUsernameNotTaken(username: String, id?: number): Observable<any> {
-    return this.http.post(`api/validators/username-not-taken`, { value: username, id: id });
-  }
+  // validateUsernameNotTaken(username: String, id?: number): Observable<any> {
+  //   return this.http.post(`api/validators/username-not-taken`, { value: username, id: id });
+  // }
 
   get(id: number): Observable<ApiResponse<Roles>> {
     return this.http.get<ApiResponse<Roles>>(`${this.resourceUrl}/get/${id}`);

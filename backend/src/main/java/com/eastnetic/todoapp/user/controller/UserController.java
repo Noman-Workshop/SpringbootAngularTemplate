@@ -2,12 +2,16 @@ package com.eastnetic.todoapp.user.controller;
 
 import com.eastnetic.todoapp.common.controller.BaseController;
 import com.eastnetic.todoapp.common.domain.response.ApiResponse;
+import com.eastnetic.todoapp.common.domain.response.PagedResponse;
 import com.eastnetic.todoapp.common.util.ResponseUtil;
 import com.eastnetic.todoapp.user.domain.request.CreateUserRequest;
+import com.eastnetic.todoapp.user.domain.request.GetUserRequest;
 import com.eastnetic.todoapp.user.domain.request.UpdateUserRequest;
+import com.eastnetic.todoapp.user.domain.response.UserAdminResponse;
 import com.eastnetic.todoapp.user.domain.response.UserDetailsResponse;
 import com.eastnetic.todoapp.user.service.UserService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -40,4 +44,12 @@ public class UserController extends BaseController {
 		UserDetailsResponse response = userService.update(updateuserRequest);
 		return ResponseUtil.createResponse(HttpStatus.OK, USER_UPDATED_SUCCESSFULLY.getMessage(), response);
 	}
+
+	@PostMapping ("/all")
+	public ResponseEntity<ApiResponse<PagedResponse<UserAdminResponse>>> getAll(@Valid @RequestBody GetUserRequest getUserRequest) {
+		PagedResponse<UserAdminResponse> adminResponse = userService.getAll(getUserRequest);
+
+		return ResponseUtil.createResponse(HttpStatus.OK, USERS_RETRIEVED_SUCCESSFULLY.getMessage(), adminResponse);
+	}
+
 }
