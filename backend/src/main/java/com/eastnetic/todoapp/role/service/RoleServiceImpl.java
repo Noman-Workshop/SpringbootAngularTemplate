@@ -85,6 +85,5 @@ public class RoleServiceImpl extends BaseService implements RoleService {
         } catch (Exception e){
             throw new RoleDeleteFailedException();
         }
-
     }
 }

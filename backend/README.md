@@ -9,11 +9,11 @@ This is the job interview task for software developer position
 
 ## Task description
 
-You need to make a Todo app with these requirements:
+You need to make a Userrole app with these requirements:
 
 1. Page for listing all the todo items
-2. Todo item add and edit forms (separate pages)
-3. Todo item consists of (date, item name and description)
+2. Userrole item add and edit forms (separate pages)
+3. Userrole item consists of (date, item name and description)
 4. Pages must interact between each other logically. (You can go from list to new or edit and when saving go back to
    list)
 

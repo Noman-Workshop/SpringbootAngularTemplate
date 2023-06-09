@@ -88,7 +88,10 @@ public class WebSecurityConfig {
 				    "/auth/signin",
 				    "/auth/refresh",
 					"/todo/create",
-					"/role/**"
+					"/role/**",
+					"/userrole/**",
+					"/menu/**",
+					"/rolemenu/**"
 		    )
 		    .permitAll()
 		    .anyRequest()
