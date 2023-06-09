@@ -67,7 +67,7 @@ export class TodoAddComponent implements OnInit {
         (data) => {
           this.loading = false;
           this.submitting = false;
-          this.msg.success('Todo added successfully');
+          this.msg.success('Userrole added successfully');
           console.log(data);
           this.form.reset();
           this.router.navigate(['/todo/list']);

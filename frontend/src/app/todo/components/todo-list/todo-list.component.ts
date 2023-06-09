@@ -118,7 +118,7 @@ export class TodoListComponent implements OnInit {
     this.todoService.update(todo).subscribe(
       () => {
         this.load();
-        this.message.success('Todo updated successfully');
+        this.message.success('Userrole updated successfully');
       },
       (error) => {
         this.message.error('Failed to update todo');
@@ -135,7 +135,7 @@ export class TodoListComponent implements OnInit {
     this.todoService.update(todo).subscribe(
       () => {
         this.load();
-        this.message.success('Todo updated successfully');
+        this.message.success('Userrole updated successfully');
       },
       (error) => {
         this.message.error('Failed to update todo');
@@ -147,7 +147,7 @@ export class TodoListComponent implements OnInit {
     this.todoService.delete(id).subscribe(
       () => {
         this.load();
-        this.message.success('Todo deleted successfully');
+        this.message.success('Userrole deleted successfully');
       },
       error => {
         this.message.error('Failed to delete todo', error);

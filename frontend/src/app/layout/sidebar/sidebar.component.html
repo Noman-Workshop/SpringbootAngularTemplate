@@ -1,39 +1,21 @@
-<div class="aside-inner">
-  <ul nz-menu [nzMode]="'inline'" nzTheme='light' [nzInlineCollapsed]="settings.layout.collapsed">
+<!-- <div class="aside-inner">
+  <ul nz-menu [nzMode]="'inline'" nzTheme='light'>
     <li nz-submenu nzOpen>
       <span title>
         <i nz-icon nzType="check"></i>
-        <span>Todo</span>
+        <span>Userrole</span>
       </span>
       <ul>
         <li nz-menu-item routerLinkActive="ant-menu-item-selected">
-          <a [routerLink]="['/todo/list']"><i nz-icon nzType="unordered-list" nzTheme="outline"></i><span>Todo List</span></a>
+          <a [routerLink]="['/todo/list']"><i nz-icon nzType="unordered-list" nzTheme="outline"></i><span>Userrole List</span></a>
         </li>
       </ul>
       <ul>
         <li nz-menu-item routerLinkActive="ant-menu-item-selected">
-          <a [routerLink]="['/todo/add']"><i nz-icon nzType="plus"></i><span>Add Todo</span></a>
+          <a [routerLink]="['/todo/add']"><i nz-icon nzType="plus"></i><span>Add Userrole</span></a>
         </li>
       </ul>
     </li>
-
-    <li nz-submenu nzOpen>
-      <span title>
-        <i nz-icon nzType="check"></i>
-        <span>Roles</span>
-      </span>
-      <ul>
-        <li nz-menu-item routerLinkActive="ant-menu-item-selected">
-          <a [routerLink]="['/roles/list']"><i nz-icon nzType="unordered-list" nzTheme="outline"></i><span>Roles List</span></a>
-        </li>
-      </ul>
-      <ul>
-        <li nz-menu-item routerLinkActive="ant-menu-item-selected">
-          <a [routerLink]="['/roles/add']"><i nz-icon nzType="plus"></i><span>Add Role</span></a>
-        </li>
-      </ul>
-    </li>
-
     <li nz-submenu nzOpen *appHasAnyAuthority="['ROLE_ADMIN']">
       <span title>
         <i nz-icon nzType="setting"></i>
@@ -45,5 +27,61 @@
         </li>
       </ul>
     </li>
+  </ul>
+</div> -->
+
+<div class="aside-inner">
+  <ul nz-menu [nzMode]="'inline'" nzTheme="light">
+    <ng-container *ngFor="let menu of menus">
+      <li nz-submenu nzOpen *ngIf="!menu.isActive">
+        <span title>
+          <i nz-icon [nzType]="menu.icon"></i>
+          <span>{{ menu.name }}</span>
+        </span>
+
+        <ul>
+          <ng-container *ngFor="let subMenu of menu.subMenus">
+            <li nz-submenu nzOpen *ngIf="!subMenu.isActive">
+              <span title>
+                <i nz-icon [nzType]="subMenu.icon" nzTheme="outline"></i>
+                <span>{{ subMenu.name }}</span>
+              </span>
+
+              <ul>
+                <ng-container *ngFor="let subSubMenu of subMenu.subMenus">
+                  <li nz-menu-item *ngIf="!subSubMenu.isActive">
+                    <span title>
+                      <i nz-icon [nzType]="subSubMenu.icon" nzTheme="outline"></i>
+                      <span>{{ subSubMenu.name }}</span>
+                    </span>
+                  </li>
+                  
+                  <li nz-menu-item *ngIf="subSubMenu.isActive">
+                    <a [routerLink]="[subSubMenu.url]">
+                      <i nz-icon [nzType]="subSubMenu.icon" nzTheme="outline"></i>
+                      <span>{{ subSubMenu.name }}</span>
+                    </a>
+                  </li>
+                </ng-container>
+              </ul>
+            </li>
+
+            <li nz-menu-item *ngIf="subMenu.isActive">
+              <a [routerLink]="[subMenu.url]">
+                <i nz-icon [nzType]="subMenu.icon" nzTheme="outline"></i>
+                <span>{{ subMenu.name }}</span>
+              </a>
+            </li>
+          </ng-container>
+        </ul>
+      </li>
+
+      <li *ngIf="menu.isActive">
+        <a [routerLink]="[menu.url]" class="ant-menu-item active-menu">
+          <i nz-icon [nzType]="menu.icon" nzTheme="outline" class="ant-menu-item-icon"></i>
+          <span class="ant-menu-item-title">{{ menu.name }}</span>
+        </a>
+      </li>
+    </ng-container>
   </ul>
 </div>
